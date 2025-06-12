@@ -3,13 +3,13 @@ import { TextField, Button, Box } from "@mui/material";
 
 const AMINO_ACIDS = /^[ARNDCEQGHILKMFPSTWYV-]+$/i;
 
-export type FormData = {
+export type InputData = {
   top: string;
   bottom: string;
 };
 
 type InputProps = {
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: InputData) => void;
 };
 
 const InputForm = ({ onSubmit }: InputProps) => {
@@ -17,7 +17,7 @@ const InputForm = ({ onSubmit }: InputProps) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<FormData>({ mode: "onChange" });
+  } = useForm<InputData>({ mode: "onChange" });
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
