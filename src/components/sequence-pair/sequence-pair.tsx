@@ -1,13 +1,6 @@
-import {
-  Alert,
-  Box,
-  Snackbar,
-  Typography,
-  type SnackbarCloseReason,
-} from "@mui/material";
+import { Alert, Box, Snackbar, type SnackbarCloseReason } from "@mui/material";
 import { useState } from "react";
-
-const LS = 1;
+import { LS } from "../../utils/alignment";
 
 type SequencePairProps = {
   topSequence: string;
@@ -21,8 +14,7 @@ const SequencePair = ({
   bottomSequence,
   topColorStops,
   bottomColorStops,
-}:
-SequencePairProps) => {
+}: SequencePairProps) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const handleMouseUp = () => {
@@ -47,43 +39,44 @@ SequencePairProps) => {
   };
 
   return (
-    <Box
-      onMouseUp={handleMouseUp}
-      sx={{
-        fontFamily: "monospace",
-        fontSize: 20,
-        userSelect: "text",
-        whiteSpace: "pre-wrap",
-        wordBreak: "break-word",
-        mt: 3,
-      }}
-    >
-      <Typography
-        component="div"
+    <>
+      <Box
+        onMouseUp={handleMouseUp}
         sx={{
-          background: `linear-gradient(to right, ${topColorStops})`,
-          letterSpacing: `${LS}ch`,
-          textIndent: `${LS}ch`,
+          fontFamily: "monospace",
+          fontSize: 20,
+          userSelect: "text",
+          // whiteSpace: "pre-wrap",
+          // wordBreak: "break-word",
+          mt: 10,
+          backgroundColor: "pink",
         }}
       >
-        {topSequence}
-      </Typography>
-      <Typography
-        component="div"
-        sx={{
-          background: `linear-gradient(to right, ${bottomColorStops})`,
-          letterSpacing: `${LS}ch`,
-          textIndent: `${LS}ch`,
-        }}
-      >
-        {bottomSequence}
-      </Typography>
+        <div
+          style={{
+            background: `linear-gradient(to right, ${topColorStops})`,
+            letterSpacing: `${LS}ch`,
+            textIndent: `${LS}ch`,
+          }}
+        >
+          {topSequence}
+        </div>
+        <div
+          style={{
+            background: `linear-gradient(to right, ${bottomColorStops})`,
+            letterSpacing: `${LS}ch`,
+            textIndent: `${LS}ch`,
+          }}
+        >
+          {bottomSequence}
+        </div>
+      </Box>
       <Snackbar open={isCopied} autoHideDuration={1000} onClose={handleClose}>
         <Alert severity="info" variant="filled" sx={{ width: "100%" }}>
           Скопировано
         </Alert>
       </Snackbar>
-    </Box>
+    </>
   );
 };
 
