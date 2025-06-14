@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { TextField, Button, Box } from "@mui/material";
+import { OFFSET } from "../../utils/alignment";
 
 const AMINO_ACIDS = /^[ARNDCEQGHILKMFPSTWYV-]+$/i;
 
@@ -17,11 +18,17 @@ const InputForm = ({ onSubmit }: InputProps) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<InputData>({ mode: "onChange" });
+  } = useForm<InputData>({ mode: "onChange", shouldUnregister: true });
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      sx={{ pl: `${OFFSET}ch` }}
+    >
       <TextField
+      
         label="Последовательность 1"
         fullWidth
         margin="normal"
@@ -35,6 +42,7 @@ const InputForm = ({ onSubmit }: InputProps) => {
         })}
         error={!!errors.top}
         helperText={errors.top?.message}
+        
       />
 
       <TextField
@@ -43,9 +51,13 @@ const InputForm = ({ onSubmit }: InputProps) => {
         margin="normal"
         {...register("bottom", {
           required: "Обязательное поле",
-          validate: (value, { top }) =>
-            value.length === top.length ||
-            "Длина должна совпадать с первой последовательностью",
+          validate: (value, { top }) => {
+            if (!top) return true;
+            return (
+              value.length === top.length ||
+              "Длина должна совпадать с первой последовательностью"
+            );
+          },
           pattern: {
             value: AMINO_ACIDS,
             message: "Недопустимые буквы или символы",

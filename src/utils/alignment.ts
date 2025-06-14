@@ -1,6 +1,12 @@
-export const LS = 1;
+// adjust letter space in "ch" units
+// LS = 0  (no space)
+export const LS = 0;
+
+//computed  shifts (do not manually modify)
 export const CELL = 1 + LS;
 export const OFFSET = LS / 2;
+
+// bg color for none colored cells
 export const BG_COLOR = "white";
 
 const AMINO_COLORS: Record<string, string> = {
@@ -24,7 +30,7 @@ const AMINO_COLORS: Record<string, string> = {
   H: "#80BFFF",
   Q: "#80BFFF",
   N: "#80BFFF",
-  "-": "white",
+  "-": BG_COLOR,
 };
 
 export function getColor(char: string) {

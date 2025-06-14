@@ -44,7 +44,7 @@ const SequencePair = ({
         onMouseUp={handleMouseUp}
         sx={{
           fontFamily: "monospace",
-          fontSize: 20,
+          fontSize: 18,
           userSelect: "text",
           // whiteSpace: "pre-wrap",
           // wordBreak: "break-word",
