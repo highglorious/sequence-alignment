@@ -6,7 +6,7 @@ import { createMultilineAlignment } from "./utils/alignment";
 import { useResponsiveLen } from "./hooks/useResponsiveLen";
 
 const App = () => {
-  const maxSequenceLen = useResponsiveLen();
+  const [ref, maxSequenceLen] = useResponsiveLen();
 
   const [alignment, setAlignment] = useState<InputData | null>(null);
 
@@ -17,8 +17,8 @@ const App = () => {
   console.log(maxSequenceLen);
 
   return (
-    <Container fixed >
-      <Box sx={{mt: 1}}>
+    <Container fixed>
+      <Box sx={{ mt: 1 }} ref={ref}>
         <InputForm onSubmit={handleSubmit} />
         {alignment && (
           <Stack spacing={1} sx={{ mt: 3 }}>

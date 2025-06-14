@@ -16,6 +16,7 @@ type InputProps = {
 const InputForm = ({ onSubmit }: InputProps) => {
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<InputData>({ mode: "onChange", shouldUnregister: true });
@@ -28,7 +29,6 @@ const InputForm = ({ onSubmit }: InputProps) => {
       sx={{ pl: `${OFFSET}ch` }}
     >
       <TextField
-      
         label="Последовательность 1"
         fullWidth
         margin="normal"
@@ -38,11 +38,14 @@ const InputForm = ({ onSubmit }: InputProps) => {
             value: AMINO_ACIDS,
             message: "Недопустимые буквы или символы",
           },
-          setValueAs: (v) => v.toUpperCase(),
         })}
         error={!!errors.top}
         helperText={errors.top?.message}
-        
+        onChange={(e) =>
+          setValue("top", e.target.value.toUpperCase(), {
+            shouldValidate: true,
+          })
+        }
       />
 
       <TextField
@@ -62,10 +65,14 @@ const InputForm = ({ onSubmit }: InputProps) => {
             value: AMINO_ACIDS,
             message: "Недопустимые буквы или символы",
           },
-          setValueAs: (v) => v.toUpperCase(),
         })}
         error={!!errors.bottom}
         helperText={errors.bottom?.message}
+        onChange={(e) =>
+          setValue("bottom", e.target.value.toUpperCase(), {
+            shouldValidate: true,
+          })
+        }
       />
 
       <Button

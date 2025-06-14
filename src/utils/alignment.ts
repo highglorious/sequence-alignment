@@ -1,6 +1,11 @@
+// Constants
+
 // adjust letter space in "ch" units
 // LS = 0  (no space)
-export const LS = 0;
+export const LS = 1;
+
+// adjust mono font size
+export const MONO_FONT_SIZE = 18;
 
 //computed  shifts (do not manually modify)
 export const CELL = 1 + LS;

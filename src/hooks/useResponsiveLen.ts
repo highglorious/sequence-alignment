@@ -1,29 +1,27 @@
-import { useMediaQuery, useTheme } from "@mui/material";
-import { LS } from "../utils/alignment";
+import React, { useEffect, useRef, useState } from "react";
+import { getMaxLen } from "../utils/getMaxLen";
 
-function getMaxLen(len: number) {
-  return Math.ceil(len / (1 + LS));
-}
+export const useResponsiveLen = <T extends HTMLElement>():[React.RefObject<T | null>, number] => {
+  const ref = useRef<T>(null);
+  const [width, setWidth] = useState(0);
 
-export const useResponsiveLen = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(460));
-  const isXs = useMediaQuery(theme.breakpoints.between(460, "sm"));
-  const isSm = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  const isMd = useMediaQuery(theme.breakpoints.between("md", "lg"));
-  const isLg = useMediaQuery(theme.breakpoints.up("lg"));
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
 
-  // if (isMobile) return 14;
-  // if (isXs) return 18;
-  // if (isSm) return 26;
-  // if (isMd) return 42;
-  // if (isLg) return 58;
+    const updateWidth = () => setWidth(element.offsetWidth);
+    updateWidth();
+    const resizeObserver = new ResizeObserver(() => {
+      updateWidth();
+    });
+    resizeObserver.observe(element);
 
-  if (isMobile) return getMaxLen(28);
-  if (isXs) return getMaxLen(42);
-  if (isSm) return getMaxLen(54);
-  if (isMd) return getMaxLen(84);
-  if (isLg) return getMaxLen(116);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
-  return 16;
+  const len = getMaxLen(width);
+
+  return [ref, len];
 };

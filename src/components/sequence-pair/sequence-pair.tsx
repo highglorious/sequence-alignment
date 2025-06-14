@@ -1,6 +1,6 @@
 import { Alert, Box, Snackbar, type SnackbarCloseReason } from "@mui/material";
 import { useState } from "react";
-import { LS } from "../../utils/alignment";
+import { LS, MONO_FONT_SIZE } from "../../utils/alignment";
 
 type SequencePairProps = {
   topSequence: string;
@@ -44,12 +44,9 @@ const SequencePair = ({
         onMouseUp={handleMouseUp}
         sx={{
           fontFamily: "monospace",
-          fontSize: 18,
+          fontSize: MONO_FONT_SIZE,
           userSelect: "text",
-          // whiteSpace: "pre-wrap",
-          // wordBreak: "break-word",
           mt: 10,
-          backgroundColor: "pink",
         }}
       >
         <div
